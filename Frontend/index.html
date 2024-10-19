@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document Verifier</title>
+</head>
+<body>
+    <h1>Document Verifier</h1>
+
+    <h2>Add Document</h2>
+    <input type="file" id="document" />
+    <button onclick="addDocument()">Upload</button>
+
+    <h2>Verify Document</h2>
+    <input type="file" id="verifyDocument" />
+    <button onclick="verifyDocument()">Verify</button>
+
+    <script>
+        async function getDocumentHash(file) {
+            const arrayBuffer = await file.arrayBuffer();
+            const hashBuffer = await crypto.subtle.digest('SHA-256', arrayBuffer);
+            return Array.from(new Uint8Array(hashBuffer)).map(b => b.toString(16).padStart(2, '0')).join('');
+        }
+
+        async function addDocument() {
+            const file = document.getElementById('document').files[0];
+            const docHash = await getDocumentHash(file);
+            console.log("Document hash:", docHash);
+            // Вызов функции на сервере для добавления документа
+            // addDocument(docHash);
+        }
+
+        async function verifyDocument() {
+            const file = document.getElementById('verifyDocument').files[0];
+            const docHash = await getDocumentHash(file);
+            console.log("Document hash for verification:", docHash);
+            // Вызов функции на сервере для верификации документа
+            // verifyDocument(docHash);
+        }
+    </script>
+</body>
+</html>
