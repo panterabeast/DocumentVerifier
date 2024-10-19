@@ -1,0 +1,12 @@
+{
+  "name": "document-verifier",
+  "version": "1.0.0",
+  "description": "A decentralized document verification system using Base blockchain",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "ethers": "^5.0.0"
+  }
+}
